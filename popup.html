@@ -14,12 +14,18 @@
   <title>Nevermark</title>
 </head>
 <body>
-  <div class="card-panel light-blue lighten-1">
+  <div class="row">
     <img class="logo" src="logo_200.png" alt="Nevermark logo" />
-      <form class="form-1" action="http://www.google.com" method="GET" target="_blank">
-      <input class="input-1" name="param1" type="text" />
-      <input class="input-2" type="submit" value="Search" />
-      </form>
+    <form class="col s12" action="http://www.google.com" method="GET" target="_blank">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="input" type="text" placeholder="Search your history" name="param1"></input>
+          <button class="btn blue accent-4" type="submit" value="Search">Search
+            <i class="material-icons right blue accent-4 ">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/materialize.min.js"></script>
