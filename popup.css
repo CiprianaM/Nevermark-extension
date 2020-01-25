@@ -1,0 +1,26 @@
+body {
+  width: 200px;
+  height: 240px;
+  text-align: center;
+}
+
+.input-1 {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.input-2 {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  color: #ffff;
+  background-color: #665AC7;
+}
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+.logo {
+  width: 200px;
+  height: 200px;
+}
