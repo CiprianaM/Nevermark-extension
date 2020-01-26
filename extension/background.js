@@ -16,35 +16,35 @@ chrome.runtime.onMessage.addListener((msg,sender) => {
 });
 
 const toggleIdle = (tabId,idle)=>{
-  log(`toggle idle called with argument ${idle}`,'ua')
+  log(`Toggle idle called with argument ${idle}`,'ua')
   const tab = openedTabs[tabId];
   if(!tab){
-    log('no found tab','e')
+    log('No found tab','e')
   }
 
   if(!tab.startTime){
     tab.startTime = tab.timeStopped = + new Date();
     tab.isIdle = false;
-    log(`Tab active for the first time : ${tab.fullTitle}`,'ua')
-    return
+    log(['Tab active for the first time ',tab.fullTitle],'ua')
+    return;
   }
   if(idle){
     tab.isIdle = true;
-    log(`Tab idle : ${tab.fullTitle}`,'ua') 
+    log(['Tab idle',tab.fullTitle],'ua') 
     tab.timeSpent += + new Date() - tab.timeStopped;
     tab.timeStopped = + new Date();
   }else{
     tab.isIdle = false;
-    log(`Tab active : ${tab.fullTitle}`,'ua') 
+    log(['Tab active',tab.fullTitle],'ua') 
   }
   
 }
 
 const onNewUrl = (pageData,tabId)=>{  
-  log('New page visited','ua');
+  log('New page visited 👇 ','ua');
   // Could there be an edgecase ?
   if(!pageData || !(pageData.fullUrl || pageData.fullTitle)){
-    log('incomplete pageData passed to background.js','e');
+    log('Incomplete pageData passed to background.js','e');
     return;
   }
   log(pageData,'table')
@@ -66,7 +66,7 @@ const onNewUrl = (pageData,tabId)=>{
 chrome.tabs.onRemoved.addListener((tabId) =>{
   log('Tab removed','ua')
   if(!openedTabs[tabId]){
-    log('no url found','w')
+    log('No url found','w')
     return; // tab with no url, such as widget
   }
   
@@ -77,7 +77,7 @@ chrome.tabs.onRemoved.addListener((tabId) =>{
 
 // Utilities
 const sendPageData = async (pageData) => {
-  log('Sending data to server : ','sa');
+  log('Sending data to server 👇 ','sa');
   if(!pageData.isIdle){
     pageData.timeSpent += + new Date() - pageData.timeStopped;
   }
@@ -96,8 +96,8 @@ const sendPageData = async (pageData) => {
     body: JSON.stringify(pageData), // body data type must match "Content-Type" header
   });
   if(!(response.status === 201 && response.ok)){
-    log(`Response status : ${response.status}`,'sa');
-    log(response.status);
+    log(['Response status',response.status],'sa');
+   
   }
 };
 
@@ -115,7 +115,11 @@ const log = (input,consoleFunc='log') => {
     break;
   default:
     if(!logStyles[consoleFunc])consoleFunc = 'log'
-    console.log(`%c ${logStyles[consoleFunc].before} ${input}`,logStyles[consoleFunc].style);
+    if(typeof input === 'object'){
+      console.log(`%c ${logStyles[consoleFunc].before} ${input[0]} : %c${input[1]} `,logStyles[consoleFunc].style,logStyles[consoleFunc].style+'font-style:italic;');
+    }else{
+      console.log(`%c ${logStyles[consoleFunc].before} ${input}`,logStyles[consoleFunc].style);
+    }
     break;
   }
   
