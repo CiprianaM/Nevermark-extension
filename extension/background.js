@@ -1,7 +1,4 @@
 let openedTabs = [];
-let activeTabUrl = '';
-let prevActiveTabUrl = '';
-let activeTabid = '';
 const SERVER_URL = 'http://localhost:3004';
 
 const userId = 1;
@@ -82,6 +79,7 @@ const sendPageData = async (pageData) => {
   if (!pageData.isIdle && pageData.timeSpent !== 0) {
     pageData.timeSpent += + new Date() - pageData.timeStopped;
   }
+  pageData.userId = userId;
   delete pageData.isIdle;
   delete pageData.timeStopped;
 
@@ -123,3 +121,4 @@ const log = (input,consoleFunc = 'log') => {
     break;
   } 
 };
+
