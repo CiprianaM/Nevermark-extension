@@ -6,7 +6,7 @@ if(!(!document.URL || document.URL.startsWith('chrome://'))){
   const pageData = {
     fullUrl : document.URL,
     fullTitle: document.title,
-    text: document.body.innerText.replace(/^(\s*\r\n){2,}/,'\r\n')
+    text: document.body.innerText.replace(/^(\s*\r\n){2,}/,'\r\n'),
   };
 
   const port = chrome.runtime.connect({name: 'knockknock'});

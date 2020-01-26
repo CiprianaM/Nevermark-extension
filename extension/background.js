@@ -6,12 +6,6 @@ const SERVER_URL = 'http://localhost:3004';
 
 const userId = 1;
 
-// chrome.runtime.onConnect.addListener(function (port) {
-//   console.assert(port.name == 'knockknock');
-//   port.onMessage.addListener(function (msg,sender) {
-//     log(['message received from',JSON.stringify(sender,null,2)],'i')
-//   });
-// });
 chrome.runtime.onConnect.addListener( (port) => {
   port.onMessage.addListener((msg,sender) => {
   // whenever a new url is loaded into a tab
@@ -83,10 +77,9 @@ chrome.tabs.onRemoved.addListener((tabId) =>{
   }).catch(e => log(e,'error','e'));
 });
 
-// Utilities
 const sendPageData = async (pageData) => {
   log('Sending data to server 👇 ','sa');
-  if(!pageData.isIdle){
+  if(!pageData.isIdle && pageData.timeSpent !== 0){
     pageData.timeSpent += + new Date() - pageData.timeStopped;
   }
   delete pageData.isIdle;
