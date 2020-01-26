@@ -6,13 +6,21 @@ const SERVER_URL = 'http://localhost:3004';
 
 const userId = 1;
 
-chrome.runtime.onMessage.addListener((msg,sender) => {
+// chrome.runtime.onConnect.addListener(function (port) {
+//   console.assert(port.name == 'knockknock');
+//   port.onMessage.addListener(function (msg,sender) {
+//     log(['message received from',JSON.stringify(sender,null,2)],'i')
+//   });
+// });
+chrome.runtime.onConnect.addListener( (port) => {
+  port.onMessage.addListener((msg,sender) => {
   // whenever a new url is loaded into a tab
-  if(msg.pageData){
-    return onNewUrl(msg.pageData,sender.tab.id);
-  }
-  // Else this is a timer order
-  return toggleIdle(sender.tab.id,msg.idle)
+    if(msg.pageData){
+      return onNewUrl(msg.pageData,sender.sender.tab.id);
+    }
+    // Else this is a timer order
+    return toggleIdle(sender.sender.tab.id,msg.idle)
+  });
 });
 
 const toggleIdle = (tabId,idle)=>{

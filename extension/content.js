@@ -1,5 +1,5 @@
 let idle = true;
-const EXTENSION_ID = 'hdmgnjfddgdcogahdljmficcbhpceiod';
+let SCRIPT_KILLED = false;
 let timer;
 
 if(!(!document.URL || document.URL.startsWith('chrome://'))){
@@ -8,23 +8,34 @@ if(!(!document.URL || document.URL.startsWith('chrome://'))){
     fullTitle: document.title,
     text: document.body.innerText.replace(/^(\s*\r\n){2,}/,'\r\n')
   };
+
+  const port = chrome.runtime.connect({name: 'knockknock'});
     
   const resetIdleTimer = ()=> {
+    if(SCRIPT_KILLED)return;
     clearTimeout(timer);
     if(idle){
       idle = false;
-      chrome.runtime.sendMessage(EXTENSION_ID,{idle});
+      port.postMessage({idle});
     }
     timer = setTimeout(setIdle,3000)
   }
   const setIdle = () => {
+    if(SCRIPT_KILLED)return;
     idle = true;
-    chrome.runtime.sendMessage(EXTENSION_ID,{idle});
+    port.postMessage({idle});
   }
  
-  chrome.runtime.sendMessage(EXTENSION_ID,{pageData});
+  port.postMessage({pageData});
   document.body.addEventListener('mousemove',resetIdleTimer);
   document.addEventListener('scroll',resetIdleTimer);
+
+  port.onDisconnect.addListener(()=>{
+    console.log('disconnected from background script')
+    document.body.removeEventListener('mousemove',resetIdleTimer);
+    document.removeEventListener('scroll',resetIdleTimer);
+    SCRIPT_KILLED = true;
+  })
     
 }
 
