@@ -10,7 +10,7 @@ if (!(!document.URL || document.URL.startsWith('chrome://'))) {
   };
 
   const port = chrome.runtime.connect({name : 'knockknock'});
-    
+
   const resetIdleTimer = ()=> {
     if (SCRIPT_KILLED) return;
     clearTimeout(timer);
@@ -25,17 +25,16 @@ if (!(!document.URL || document.URL.startsWith('chrome://'))) {
     idle = true;
     port.postMessage({idle});
   };
-  
+
   port.postMessage({pageData});
   document.body.addEventListener('mousemove',resetIdleTimer);
   document.addEventListener('scroll',resetIdleTimer);
-  
+
   port.onDisconnect.addListener(()=>{
     console.log('disconnected from background script');
     document.body.removeEventListener('mousemove',resetIdleTimer);
     document.removeEventListener('scroll',resetIdleTimer);
     SCRIPT_KILLED = true;
   });
-  
 }
 

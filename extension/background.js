@@ -1,6 +1,5 @@
 let openedTabs = [];
 const SERVER_URL = 'http://localhost:3004';
-
 const userId = 1;
 
 chrome.runtime.onConnect.addListener((port) => {
@@ -29,17 +28,17 @@ const toggleIdle = (tabId,idle)=>{
   }
   if (idle) {
     tab.isIdle = true;
-    log(['Tab idle',tab.fullTitle],'ua'); 
+    log(['Tab idle',tab.fullTitle],'ua');
     tab.timeSpent += + new Date() - tab.timeStopped;
     tab.timeStopped = + new Date();
   } else {
     tab.isIdle = false;
-    log(['Tab active',tab.fullTitle],'ua'); 
+    log(['Tab active',tab.fullTitle],'ua');
   }
-  
+
 };
 
-const onNewUrl = (pageData,tabId)=>{  
+const onNewUrl = (pageData,tabId)=>{
   log('New page visited 👇 ','ua');
   // Could there be an edgecase ?
   if (!pageData || !(pageData.fullUrl || pageData.fullTitle)) {
@@ -56,10 +55,10 @@ const onNewUrl = (pageData,tabId)=>{
       return;
     }
   }
-    
+
   pageData.tabId = tabId;
   pageData.timeSpent = 0;
-  openedTabs[tabId] = pageData; 
+  openedTabs[tabId] = pageData;
 };
 
 chrome.tabs.onRemoved.addListener((tabId) =>{
@@ -68,7 +67,7 @@ chrome.tabs.onRemoved.addListener((tabId) =>{
     log('No url found','w');
     return; // tab with no url, such as widget
   }
-  
+
   sendPageData(openedTabs[tabId]).then((res)=>{
     delete openedTabs[tabId];
   }).catch(e => log(e,'error','e'));
@@ -109,7 +108,7 @@ const log = (input,consoleFunc = 'log') => {
   };
   switch (consoleFunc) {
   case 'table':
-    console.table(input); 
+    console.table(input);
     break;
   default:
     if (!logStyles[consoleFunc])consoleFunc = 'log';
@@ -119,6 +118,5 @@ const log = (input,consoleFunc = 'log') => {
       console.log(`%c ${logStyles[consoleFunc].before} ${input}`,logStyles[consoleFunc].style);
     }
     break;
-  } 
+  }
 };
-
