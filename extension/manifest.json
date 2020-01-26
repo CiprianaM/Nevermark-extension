@@ -1,0 +1,18 @@
+{
+  "name": "Nevermark",
+  "description": "Forget about bookmarks. Browse and search your history like hell",
+  "version": "0.1.0",
+  "permissions": [
+    "activeTab","tabs","background","alarms"
+  ],
+  "content_scripts": [{
+    "matches":["<all_urls>"],
+ "js": ["content.js"]
+}],
+"background" : {
+  "scripts": ["background.js"]
+},
+"browser_action": {},
+  "manifest_version": 2
+}
+
