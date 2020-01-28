@@ -2,6 +2,7 @@ let openedTabs = [];
 const SERVER_URL = 'http://localhost:3004';
 const userId = 1;
 
+<<<<<<< HEAD
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((msg,sender) => {
   // whenever a new url is loaded into a tab
@@ -13,6 +14,30 @@ chrome.runtime.onConnect.addListener((port) => {
   });
 });
 
+=======
+
+
+
+chrome.runtime.onConnect.addListener((port) => {
+
+  port.onMessage.addListener((msg,sender) => {
+  // whenever a new url is loaded into a tab
+    if (msg.pageData) {
+      return onNewUrl(msg.pageData, sender.sender.tab.id);
+    }
+    // Else this is a timer order
+    return toggleIdle(sender.sender.tab.id, msg.idle);
+  });
+
+
+});
+
+/* chrome.runtime.onDisconnect.addListener((port) => {
+  console.log('Disconnected', port);
+}); */
+
+
+>>>>>>> tmp
 const toggleIdle = (tabId,idle)=>{
   log(`Toggle idle called with argument ${idle}`,'ua');
   const tab = openedTabs[tabId];
