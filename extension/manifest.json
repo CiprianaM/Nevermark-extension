@@ -2,10 +2,7 @@
   "name": "Nevermark",
   "description": "Forget about bookmarks. Browse and search your history like hell",
   "version": "0.1.0",
-<<<<<<< HEAD
-=======
   "manifest_version": 2,
->>>>>>> tmp
   "icons": {
     "128": "icon128.png",
     "32": "icon32.png",
@@ -13,11 +10,7 @@
     "16": "icon16.png"
   },
   "permissions": [
-<<<<<<< HEAD
-    "activeTab","tabs","background","alarms","history"
-=======
     "activeTab","tabs","background","alarms","history","storage"
->>>>>>> tmp
   ],
   "content_scripts": [{
     "matches":["<all_urls>"],
@@ -26,16 +19,8 @@
 "background" : {
   "scripts": ["background.js"]
 },
-<<<<<<< HEAD
-"browser_action": {},
-  "manifest_version": 2,
-  "default_icon": "icon16.png",
-  "default_popup": "popup.html"
-}
-=======
 "browser_action": {
   "default_icon": "icon16.png",
   "default_popup": "popup.html"
 }
 }
->>>>>>> tmp
