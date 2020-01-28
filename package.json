@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/CiprianaM/Nevermark-extension/issues"
   },
-  "homepage": "https://github.com/CiprianaM/Nevermark-extension#readme"
+  "homepage": "https://github.com/CiprianaM/Nevermark-extension#readme",
+  "dependencies": {}
 }
