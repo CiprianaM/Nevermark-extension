@@ -1,7 +1,6 @@
 let idle = true;
 let SCRIPT_KILLED = false;
 let timer;
-let $ = require('jQuery');
 let value = 'ENABLE';
 let state = {};
 
