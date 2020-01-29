@@ -40,4 +40,6 @@ input:focus, textarea:focus, select:focus{
 }
 .logo-new{
 font-style: italic;
+color: #263238;
+
 }
