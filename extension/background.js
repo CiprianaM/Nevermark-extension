@@ -87,22 +87,27 @@ const sendPageData = async (pageData) => {
   log(pageData,'table');
   log('Json object sent to the server :👇');
   const pageDataForLog = {...pageData};
-  pageDataForLog.pageTitle = pageDataForLog.pageTitle.substr(0,100) + ' ...';
+  pageDataForLog.pageText = pageDataForLog.pageText.substr(0,100) + ' ...';
   log(JSON.stringify(pageDataForLog,null,2));
-  const response = await fetch(SERVER_URL,{
-    method : 'POST',
-    mode : 'cors',
-    cache : 'no-cache',
-    credentials : 'same-origin',
-    headers : {
-      'Content-Type' : 'application/json',
-    },
-    body : JSON.stringify(pageData), // body data type must match "Content-Type" header
-  });
-  if (!(response.status === 201 && response.ok)) {
-    log(['Response status',response.status],'sa');
-    log(['Response body',JSON.stringify(response.body)],'sa');
+  try {
+    const response = await fetch(SERVER_URL,{
+      method : 'POST',
+      mode : 'cors',
+      cache : 'no-cache',
+      credentials : 'same-origin',
+      headers : {
+        'Content-Type' : 'application/json',
+      },
+      body : JSON.stringify(pageData), // body data type must match "Content-Type" header
+    });
+    if (!(response.status === 201 && response.ok)) {
+      log(['Response status',response.status],'sa');
+      log(['Response body',JSON.stringify(response.body)],'sa');
+    }
+  } catch (e) {
+    log(['error fetching',e],'e');
   }
+
 };
 
 const log = (input,consoleFunc = 'log') => {
