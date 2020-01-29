@@ -2,6 +2,8 @@ let openedTabs = [];
 const SERVER_URL = 'http://localhost:3004';
 const userId = 1;
 
+
+
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((msg,sender) => {
   // whenever a new url is loaded into a tab
