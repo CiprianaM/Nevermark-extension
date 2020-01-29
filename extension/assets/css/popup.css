@@ -1,0 +1,54 @@
+body {
+  width: 220px;
+  height: 200px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  margin: auto;
+
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+
+}
+
+.input-1 {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.input-2 {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  color: #ffff;
+  background-color: #665AC7;
+}
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+.logo {
+  width: 200px;
+  height: 200px;
+}
+.button {
+  background-color: #03a9f4;
+  color: #e1f5fe;
+  margin: 5px;
+  padding: 5px;
+}
+.icon {
+  background-color: #03a9f4;
+  color: #e1f5fe;
+}
+.logo-new{
+font-style: italic;
+color: #263238;
+
+}
