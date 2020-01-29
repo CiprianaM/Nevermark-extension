@@ -34,3 +34,10 @@ input:focus, textarea:focus, select:focus{
   background-color: #03a9f4;
   color: #e1f5fe;
 }
+
+.switch label input[type=checkbox]:checked + .lever:after {
+  background-color: #2962ff;
+}
+.switch label input[type=checkbox]:checked + .lever {
+  background-color: #64b5f6;
+}
