@@ -6,6 +6,15 @@ const userId = 1;
 
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((msg,sender) => {
+  // turn off
+  if (msg.cmd === 'OFF') {
+    console.log('Received OFF message!');
+    chrome.tabs.query({active: true}, function(tabs) {
+      sendResponse('Received OFF message!');
+      return;
+    });
+  }
+
   // whenever a new url is loaded into a tab
     if (msg.pageData) {
       return onNewUrl(msg.pageData,sender.sender.tab.id);
