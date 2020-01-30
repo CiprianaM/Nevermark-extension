@@ -1,20 +1,9 @@
 let openedTabs = [];
-const SERVER_URL = 'http://localhost:3004';
+const SERVER_URL = 'http://192.168.1.241:3000/';
 const userId = 1;
-
-
 
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((msg,sender) => {
-  // turn off
-  if (msg.cmd === 'OFF') {
-    console.log('Received OFF message!');
-    chrome.tabs.query({active: true}, function(tabs) {
-      sendResponse('Received OFF message!');
-      return;
-    });
-  }
-
   // whenever a new url is loaded into a tab
     if (msg.pageData) {
       return onNewUrl(msg.pageData,sender.sender.tab.id);
@@ -34,17 +23,17 @@ const toggleIdle = (tabId,idle)=>{
   if (!tab.startTime) {
     tab.startTime = tab.timeStopped = + new Date();
     tab.isIdle = false;
-    log(['Tab active for the first time ',tab.fullTitle],'ua');
+    log(['Tab active for the first time ',tab.pageTitle],'ua');
     return;
   }
   if (idle) {
     tab.isIdle = true;
-    log(['Tab idle',tab.fullTitle],'ua');
-    tab.timeSpent += + new Date() - tab.timeStopped;
+    log(['Tab idle',tab.pageTitle],'ua');
+    tab.visitTimeSpent += + new Date() - tab.timeStopped;
     tab.timeStopped = + new Date();
   } else {
     tab.isIdle = false;
-    log(['Tab active',tab.fullTitle],'ua');
+    log(['Tab active',tab.pageTitle],'ua');
   }
 
 };
@@ -52,7 +41,7 @@ const toggleIdle = (tabId,idle)=>{
 const onNewUrl = (pageData,tabId)=>{
   log('New page visited 👇 ','ua');
   // Could there be an edgecase ?
-  if (!pageData || !(pageData.fullUrl || pageData.fullTitle)) {
+  if (!pageData || !(pageData.fullUrl || pageData.pageTitle)) {
     log('Incomplete pageData passed to background.js','e');
     return;
   }
@@ -66,9 +55,10 @@ const onNewUrl = (pageData,tabId)=>{
       return;
     }
   }
-
+  pageData.userId = userId;
+  pageData.visitStartTime = +new Date();
   pageData.tabId = tabId;
-  pageData.timeSpent = 0;
+  pageData.visitTimeSpent = 0;
   openedTabs[tabId] = pageData;
 };
 
@@ -86,27 +76,38 @@ chrome.tabs.onRemoved.addListener((tabId) =>{
 
 const sendPageData = async (pageData) => {
   log('Sending data to server 👇 ','sa');
-  if (!pageData.isIdle && pageData.timeSpent !== 0) {
-    pageData.timeSpent += + new Date() - pageData.timeStopped;
+  if (!pageData.isIdle && pageData.visitTimeSpent !== 0) {
+    pageData.visitTimeSpent += + new Date() - pageData.timeStopped;
   }
   pageData.userId = userId;
   delete pageData.isIdle;
   delete pageData.timeStopped;
+  delete pageData.tabId;
 
   log(pageData,'table');
-  const response = await fetch(SERVER_URL,{
-    method : 'POST',
-    mode : 'cors',
-    cache : 'no-cache',
-    credentials : 'same-origin',
-    headers : {
-      'Content-Type' : 'application/json',
-    },
-    body : JSON.stringify(pageData), // body data type must match "Content-Type" header
-  });
-  if (!(response.status === 201 && response.ok)) {
-    log(['Response status',response.status],'sa');
+  log('Json object sent to the server :👇');
+  const pageDataForLog = {...pageData};
+  pageDataForLog.pageText = pageDataForLog.pageText.substr(0,100) + ' ...';
+  log(JSON.stringify(pageDataForLog,null,2));
+  try {
+    const response = await fetch(SERVER_URL,{
+      method : 'POST',
+      mode : 'cors',
+      cache : 'no-cache',
+      credentials : 'same-origin',
+      headers : {
+        'Content-Type' : 'application/json',
+      },
+      body : JSON.stringify(pageData), // body data type must match "Content-Type" header
+    });
+    if (!(response.status === 201 && response.ok)) {
+      log(['Response status',response.status],'sa');
+      log(['Response body',JSON.stringify(response.body)],'sa');
+    }
+  } catch (e) {
+    log(['error fetching',e],'e');
   }
+
 };
 
 const log = (input,consoleFunc = 'log') => {
