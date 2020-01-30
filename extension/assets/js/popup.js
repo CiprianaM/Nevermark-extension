@@ -1,4 +1,4 @@
-
+/*
 // Event handler for the switch
 
 let button = $('#toggle-button');
@@ -26,3 +26,4 @@ const turnOff = async () => {
       console.log('TURNED OFF');
     }
   });
+ */
