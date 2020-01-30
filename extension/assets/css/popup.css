@@ -15,6 +15,7 @@ body {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
 
+ 
 }
 
 .input-1 {
@@ -47,6 +48,7 @@ input:focus, textarea:focus, select:focus{
   background-color: #03a9f4;
   color: #e1f5fe;
 }
+
 .logo-new{
 font-style: italic;
 color: #263238;
