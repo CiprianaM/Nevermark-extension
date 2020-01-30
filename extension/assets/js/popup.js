@@ -1,3 +1,4 @@
+
 // Event handler for the switch
 
 let button = $('#toggle-button');
