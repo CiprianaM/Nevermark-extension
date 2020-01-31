@@ -1,4 +1,10 @@
-
+$(document).ready(function () {
+  $('form').submit(function (e) {
+    e.preventDefault();
+    console.log($('#query').val());
+    window.open('http:///localhost:3001/search/' + $('#query').val());
+  });
+});
 /*
 // Event handler for the switch
 
