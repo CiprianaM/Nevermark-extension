@@ -1,8 +1,3 @@
-const test = document.createElement('script');
-
-test.src = chrome.runtime.getURL('script.js');
-test.onload = () => {
-  alert('Hello');
+window.onload = () => {
+  alert('Hello, this works!');
 }
-
-(document.head || document.documentElement).appendChild(test);
