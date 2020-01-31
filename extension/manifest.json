@@ -19,7 +19,6 @@
   { "matches":["*://www.google.com/*"],
       "js":["injector.js"]
   }
-
 ],
   "background" : {
   "scripts": ["background.js","context.js"]
