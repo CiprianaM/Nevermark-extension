@@ -5,38 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
   <link rel="stylesheet" type="text/css" href="assets/css/popup.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="assets/js/jquery-3.4.1.min.js"></script>
+
   <title>Nevermark</title>
+    <style>
+      .btn {
+        margin-top: 20px;
+        font-family: 'Lato', sans-serif;
+      }
+      .input-field {
+        font-family: 'Lato', sans-serif;
+        width: 50%;
+      }
+        .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #263238 !important;
+        box-shadow: 0 1px 0 0 #263238 !important;
+        }
+
+    </style>
+
 </head>
 <body>
-  <div class="row">
-    <img class="logo" src="logo_200.png" alt="Nevermark logo" />
-    <form class="col s12" action="http:///192.168.56.1:3000/search" method="GET" target="_blank">
+  <div class="container">
+    <div class="row">
+      <div class="logo-new">
+        <h4 class="noselect">nevermark</h4>
+      </div>
+    </div>
+    <form class="col s12" action="http:///localhost:3001/search" method="GET" target="_blank">
       <div class="row">
         <div class="input-field col s12">
-          <input id="input" type="text" placeholder="Search your history" name="?"></input>
-          <button class="btn blue accent-4" type="submit">Search
-            <i class="material-icons right blue accent-4 ">send</i>
+          <input type="text" placeholder="Search your history" autofocus name="q" id='query'></input>
+          <button class="btn  blue-grey darken-4" type="submit">Search
+            <i class="material-icons right ">search</i>
           </button>
         </div>
       </div>
     </form>
-    <!-- Switch -->
-  <div class="switch">
-    <label>
-      Off
-      <input type="checkbox"  id="toggle-button" value="DISABLE" checked>
-      <span class="lever"></span>
-      On
-    </label>
   </div>
+
   </div>
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="assets/js/materialize.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="assets/js/popup.js"></script>
 
 </body>
