@@ -12,6 +12,16 @@
   "permissions": [
     "activeTab","tabs","background","alarms","history","storage","contextMenus"
   ],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows":"Ctrl+B",
+        "mac": "Command+B",
+        "chromeos": "Ctrl+B",
+        "linux": "Ctrl+B"
+      }
+    }
+  },
   "content_scripts": [{
     "matches":["<all_urls>"],
  "js": ["content.js"]
