@@ -1,4 +1,4 @@
-const SERVER_URL = 'https://192.168.1.243';
+const SERVER_URL = 'https://192.168.1.243/search';
 const DEFAULT_ROUTE = '/';
 
 const queryApi = async (search) => {
@@ -6,8 +6,7 @@ const queryApi = async (search) => {
   try {
     search = encodeURI(search);
     const res = await fetch(SERVER_URL + DEFAULT_ROUTE + search);
-    alert(res);
-    return res;
+    return res.json();
   }
   catch (err) {
     console.log(err);
@@ -22,6 +21,7 @@ window.onload = () => {
   url = decodeURI(url);
   let result = url.match(regex);
   let testQuery = queryApi(result[1].replace('+', ' '));
+  console.log(testQuery);
 
 
  /* let queryDiv = queryApi(result[1])
