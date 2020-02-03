@@ -1,6 +1,5 @@
-const SERVER_URL = 'http://192.168.1.243:3000';
+const SERVER_URL = 'https://192.168.1.243';
 const DEFAULT_ROUTE = '/';
-
 
 const queryApi = async (search) => {
 
@@ -18,11 +17,10 @@ const queryApi = async (search) => {
 
 
 window.onload = () => {
-  let regex = /q={1}(\S+?)&/;
+  const regex = /q={1}(\S+?)&/;
   let url = window.location.href;
   url = decodeURI(url);
   let result = url.match(regex);
-
   let testQuery = queryApi(result[1].replace('+', ' '));
 
 
@@ -41,10 +39,9 @@ window.onload = () => {
 
 }
 
-let newDiv = document.createElement('div');
+/* let newDiv = document.createElement('div');
 newDiv.id = 'newId';
 newDiv.style.textAlign = 'center';
 let newText = document.createTextNode('Hello There!');
-newDiv.appendChild(newText);
-
-document.getElementById('extabar').prepend(newDiv);
+newDiv.appendChild(newText); */
+// document.getElementById('extabar').prepend();
