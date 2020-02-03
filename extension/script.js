@@ -5,7 +5,7 @@ const queryApi = async (search) => {
 
   try {
     search = encodeURI(search);
-    const res = await fetch(SERVER_URL + DEFAULT_ROUTE + search);
+    const res = await fetch(SERVER_URL + DEFAULT_ROUTE + search)
     return res.json();
   }
   catch (err) {
@@ -15,12 +15,12 @@ const queryApi = async (search) => {
 
 
 
-window.onload = () => {
+window.onload = async () => {
   const regex = /q={1}(\S+?)&/;
   let url = window.location.href;
   url = decodeURI(url);
   let result = url.match(regex);
-  let testQuery = queryApi(result[1].replace('+', ' '));
+  let testQuery = await queryApi(result[1].replace('+', ' '));
   console.log(testQuery);
 
 
