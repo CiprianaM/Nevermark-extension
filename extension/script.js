@@ -22,7 +22,7 @@ window.onload = async () => {
   let result = url.match(regex);
   let testQuery = await queryApi(result[1].replace('+', ' '));
   console.log(testQuery.results[0]);
-  let newText = testQuery.results[0].pageTitle;
+  let newText = `<h1>Nevermark results: ${testQuery.results[0].pageTitle}</h1>`;
   console.log(newText);
   let newHref = `https://${testQuery.results[0].url}`;
 
@@ -30,7 +30,11 @@ window.onload = async () => {
    textDiv.id = 'textDiv';
    textDiv.style.textAlign = 'center';
    textDiv.style.marginTop = '10px';
+   textDiv.style.marginLeft = '15%';
    textDiv.style.marginBottom = '10px';
+   textDiv.style.backgroundColor = '#ddd';
+   textDiv.style.width = '50%';
+   textDiv.style.borderRadius = '5px';
   //  textDiv.innerHTML = newText;
    document.getElementById('extabar').append(textDiv);
   let newLink = document.createElement('a');
