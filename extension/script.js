@@ -21,27 +21,25 @@ window.onload = async () => {
   url = decodeURI(url);
   let result = url.match(regex);
   let testQuery = await queryApi(result[1].replace('+', ' '));
-  console.log(testQuery);
+  console.log(testQuery.results[0]);
+  let newText = testQuery.results[0].pageTitle;
+  console.log(newText);
+  let newHref = `https://${testQuery.results[0].url}`;
 
-
- /* let queryDiv = queryApi(result[1])
-    .then(res => res.json())
-    .then (res.results)
-    return res.results;
- */
-
-
-
-
-// STEPS
-// 1st: The script should grab the value of the input field... somehow...
-//  replace the + character with %20 for a space for better search results
+   let textDiv = document.createElement('div');
+   textDiv.id = 'textDiv';
+   textDiv.style.textAlign = 'center';
+   textDiv.style.marginTop = '10px';
+   textDiv.style.marginBottom = '10px';
+  //  textDiv.innerHTML = newText;
+   document.getElementById('extabar').append(textDiv);
+  let newLink = document.createElement('a');
+  newLink.href = '';
+  newLink.href = newHref;
+  newLink.target = '_blank';
+  newLink.innerHTML = newText;
+  newLink.id = 'newLink';
+  newLink.style.color = 'black';
+  document.getElementById('textDiv').append(newLink);
 
 }
-
-/* let newDiv = document.createElement('div');
-newDiv.id = 'newId';
-newDiv.style.textAlign = 'center';
-let newText = document.createTextNode('Hello There!');
-newDiv.appendChild(newText); */
-// document.getElementById('extabar').prepend();
