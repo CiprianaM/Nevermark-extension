@@ -27,40 +27,45 @@ window.onload = async () => {
   let resultUrl = `https://${testQuery.results[0].url}`;
   let resultImg = `${testQuery.results[0].protocol}://${testQuery.results[0].domain}/favicon.ico`;
 
-
-// Create the various HTML elements
-let resultContainer = document.createElement('div');
-resultContainer.id = 'resultContainer';
-document.getElementById('extabar').append(resultContainer);
-
-let resultImgTag = document.createElement('img');
-resultImgTag.id = 'resultImg';
-resultImgTag.src = resultImg;
-document.getElementById('resultContainer').append(resultImgTag);
-
-let resultTitleDiv = document.createElement('div');
-resultTitleDiv.id = 'resultTitle';
-resultTitleDiv.innerHTML = resultTitle;
-document.getElementById('resultContainer').append(resultTitleDiv);
-
-let resultTextDiv = document.createElement('div');
-resultTextDiv.id = 'resultText';
-resultTextDiv.innerHTML = resultText;
-document.getElementById('resultContainer').append(resultTextDiv);
+if (testQuery.results[0].domain !== 'www.google.com') {
+  // Create the various HTML elements
+  let resultContainer = document.createElement('div');
+  resultContainer.id = 'resultContainer';
+  document.getElementById('extabar').append(resultContainer);
 
 
-let resultUrlLink = document.createElement('a');
-resultUrlLink.id = 'resultUrl';
-resultUrlLink.href = resultUrl;
-resultUrlLink.target = '_blank';
-resultUrlLink.innerText = resultUrl;
-document.getElementById('resultContainer').append(resultUrlLink);
+
+  let resultTitleDiv = document.createElement('div');
+  resultTitleDiv.id = 'resultTitle';
+  resultTitleDiv.innerHTML = resultTitle;
+  document.getElementById('resultContainer').append(resultTitleDiv);
+
+  let resultImgTag = document.createElement('img');
+  resultImgTag.id = 'resultImg';
+  resultImgTag.src = resultImg;
+  document.getElementById('resultContainer').prepend(resultImgTag);
 
 
-let resultTimespentDiv = document.createElement('div');
-resultTimespentDiv.id = 'resultTimeSpent';
-resultTimespentDiv.innerHTML = resultTimespent;
-document.getElementById('resultContainer').append(resultTimespentDiv);
+  /* let resultTextDiv = document.createElement('div');
+  resultTextDiv.id = 'resultText';
+  resultTextDiv.innerHTML = resultText;
+  document.getElementById('resultContainer').append(resultTextDiv); */
+
+
+  let resultUrlLink = document.createElement('a');
+  resultUrlLink.id = 'resultUrl';
+  resultUrlLink.href = resultUrl;
+  resultUrlLink.target = '_blank';
+  resultUrlLink.innerText = resultUrl;
+  document.getElementById('resultContainer').append(resultUrlLink);
+
+
+  let resultTimespentDiv = document.createElement('div');
+  resultTimespentDiv.id = 'resultTimeSpent';
+  resultTimespentDiv.innerHTML = resultTimespent;
+  document.getElementById('resultContainer').append(resultTimespentDiv);
+}
+
 
 
 let style = document.createElement('style');
@@ -69,9 +74,9 @@ style.innerHTML = `
 #resultContainer {
   display: flex;
   flex-direction: column;
-  padding: 20px 10px;
+  padding: 15px 10px;
   font-family: 'Lato', sans-serif;
-  border: 1px dotted black;
+  border: 1px solid black;
   border-radius: 5px;
   width: 50%;
   margin-left: 13%;
@@ -96,6 +101,8 @@ style.innerHTML = `
 
 #resultUrl {
   color: #A15CFF;
+  font-size: 10px;
+  padding-bottom: 5px;
 }
 
 #resultImg {
@@ -116,6 +123,8 @@ strong {
   flex-direction: row;
   justify-content: space-between;
   opacity: 0.4;
+  padding-top: 5px;
+
 }
 `;
 document.head.appendChild(style);
