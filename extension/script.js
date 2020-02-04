@@ -22,7 +22,8 @@ window.onload = async () => {
   let result = url.match(regex);
   let testQuery = await queryApi(result[1].replace('+', ' '));
   console.log(testQuery.results[0]);
-  let newText = `<h1>Nevermark search: ${testQuery.results[0].pageTitle}</h1>`;
+  let newText = `<h1>Nevermark search: ${testQuery.results[0].pageTitle}
+   | ${testQuery.results[0].lastVisitTime}</h1>`;
   console.log(newText);
   let newHref = `https://${testQuery.results[0].url}`;
   let textDiv = document.createElement('div');
