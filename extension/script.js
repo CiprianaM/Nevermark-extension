@@ -83,8 +83,8 @@ style.innerHTML = `
   background: #eee;
 }
 
-#resulTitle {
-  font-size 16px;
+#resultTitle {
+  font-size: 16px;
   padding-bottom: 10px;
 }
 
