@@ -12,9 +12,6 @@ const queryApi = async (search) => {
     console.log(err);
   }
 }
-
-
-
 window.onload = async () => {
   const regex = /q={1}(\S+?)&/;
   let url = window.location.href;
@@ -22,83 +19,108 @@ window.onload = async () => {
   let result = url.match(regex);
   let testQuery = await queryApi(result[1].replace('+', ' '));
   console.log(testQuery.results[0]);
-  let newText = `<h1>Nevermark search: ${testQuery.results[0].pageTitle}
-   | ${testQuery.results[0].lastVisitTime}</h1>`;
-  console.log(newText);
-  let newHref = `https://${testQuery.results[0].url}`;
-  let textDiv = document.createElement('div');
-  const link = document.createElement('link');
-  textDiv.id = 'textDiv';
 
-  let style = document.createElement('style');
-  style.innerHTML = `
-  #textDiv h1 {
-    color: black;
-    margin: auto;
-    color: #black;
-    text-align: center;
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    background-color: #fcfcfc;
-    width: 50%;
-    border-radius: 5px;
-    margin-left: 15%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: 1px solid black;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  #textDiv:hover {
-    color: red;
-  }
-  `;
+  // Create the content for the tags
+  let resultTitle = `Nevermark search: ${testQuery.results[0].pageTitle}`;
+  let resultText = `${testQuery.results[0].pageText}`;
+  let resultTimespent = `${testQuery.results[0].lastVisitTime}`;
+  let resultUrl = `https://${testQuery.results[0].url}`;
+  let resultImg = `${testQuery.results[0].protocol}://${testQuery.results[0].domain}/favicon.ico`;
 
 
-  //  textDiv.innerHTML = newText;
-   document.getElementById('extabar').append(textDiv);
-  let newLink = document.createElement('a');
-  newLink.href = '';
-  newLink.id = 'searchLink';
-  newLink.href = newHref;
-  newLink.target = '_blank';
-  newLink.innerHTML = newText;
-  newLink.id = 'newLink';
-  newLink.style.color = 'black';
-  document.getElementById('textDiv').append(newLink);
-  document.head.appendChild(style);
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('type', 'text/css');
-  link.setAttribute('href', 'https://fonts.googleapis.com/css?family=Lato&display=swap');
-  document.head.appendChild(link);
+// Create the various HTML elements
+let resultContainer = document.createElement('div');
+resultContainer.id = 'resultContainer';
+document.getElementById('extabar').append(resultContainer);
 
-  /* let testDiv = document.createElement('div');
-  let testText = `<h1>Nevermarks search: A test result here</h1>`;
+let resultImgTag = document.createElement('img');
+resultImgTag.id = 'resultImg';
+resultImgTag.src = resultImg;
+document.getElementById('resultContainer').append(resultImgTag);
 
-  testDiv.id = 'testDiv';
-  testDiv.innerHTML = testText;
+let resultTitleDiv = document.createElement('div');
+resultTitleDiv.id = 'resultTitle';
+resultTitleDiv.innerHTML = resultTitle;
+document.getElementById('resultContainer').append(resultTitleDiv);
 
-  let style = document.createElement('style');
-  style.innerHTML = `
-  #testDiv h1 {
-    margin: auto;
-    color: #black;
-    text-align: center;
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    background-color: #fcfcfc;
-    width: 40%;
-    border-radius: 5px;
-    margin-left: 15%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  `;
+let resultTextDiv = document.createElement('div');
+resultTextDiv.id = 'resultText';
+resultTextDiv.innerHTML = resultText;
+document.getElementById('resultContainer').append(resultTextDiv);
 
 
+let resultUrlLink = document.createElement('a');
+resultUrlLink.id = 'resultUrl';
+resultUrlLink.href = resultUrl;
+resultUrlLink.target = '_blank';
+resultUrlLink.innerText = resultUrl;
+document.getElementById('resultContainer').append(resultUrlLink);
 
 
-  document.getElementById('extabar').append(testDiv);
-  document.head.appendChild(style); */
+let resultTimespentDiv = document.createElement('div');
+resultTimespentDiv.id = 'resultTimeSpent';
+resultTimespentDiv.innerHTML = resultTimespent;
+document.getElementById('resultContainer').append(resultTimespentDiv);
+
+
+let style = document.createElement('style');
+// Assign style
+style.innerHTML = `
+#resultContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  font-family: 'Lato', sans-serif;
+  border: 1px dotted black;
+  border-radius: 5px;
+  width: 50%;
+  margin-left: 13%;
+}
+
+#resultContainer:hover {
+  background: #eee;
+}
+
+#resulTitle {
+  font-size 16px;
+  padding-bottom: 10px;
+}
+
+#resultText {
+  font-size: 14px;
+  padding-bottom: 10px;
+  opacity: 0.7;
+}
+
+#resultUrl {
+  color: #A15CFF;
+}
+
+#resultImg {
+  width: 16px;
+  height:16px;
+  margin-right:5px;
+  background-color:black;
+  vertical-align: bottom;
+  border-radius: 16px;
+}
+
+strong {
+  font-weight: 900;
+}
+
+#resultTimeSpent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  opacity: 0.4;
+}
+`;
+document.head.appendChild(style);
+
+let linkFont = document.createElement('link');
+linkFont.setAttribute('rel', 'stylesheet');
+linkFont.tseAttribute('href', 'https://fonts.googleapis.com/css?family=Lato&display=swap');
+linkFont.setAttribute('type', 'text/css');
+document.head.appendChild(linkFont);
 }
