@@ -1,5 +1,5 @@
 let openedTabs = [];
-const SERVER_URL = 'http://192.168.1.243:3000/';
+const SERVER_URL = 'https://192.168.1.243';
 const userId = 1;
 
 chrome.runtime.onConnect.addListener((port) => {
