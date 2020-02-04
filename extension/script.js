@@ -40,11 +40,14 @@ window.onload = async () => {
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     background-color: #fcfcfc;
-    width: 40%;
+    width: 50%;
     border-radius: 5px;
     margin-left: 15%;
     padding-top: 5px;
     padding-bottom: 5px;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   #textDiv:hover {
