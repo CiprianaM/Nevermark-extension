@@ -75,6 +75,8 @@ style.innerHTML = `
   border-radius: 5px;
   width: 50%;
   margin-left: 13%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #resultContainer:hover {
