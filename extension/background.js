@@ -1,6 +1,6 @@
 let openedTabs = [];
-const SERVER_URL = 'https://192.168.1.243';
-const userId = 1;
+const SERVER_URL = 'https://192.168.1.242/search';
+const userId = 3;
 
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((msg,sender) => {
