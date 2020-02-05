@@ -1,32 +1,23 @@
 const SERVER_URL = 'https://192.168.1.242/search';
 const DEFAULT_ROUTE = '/';
 
-// const queryApi = async (search) => {
+const queryApi = async (search) => {
 
-//   try {
-//     search = encodeURI(search);
-//     const res = await fetch(SERVER_URL + DEFAULT_ROUTE + search)
-//     return res.json();
-//   }
-//   catch (err) {
-//     console.log(err);
-//   }
-// }
+  try {
+    search = encodeURI(search);
+    const res = await fetch(SERVER_URL + DEFAULT_ROUTE + search)
+    return res.json();
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
 window.onload = async () => {
   const regex = /q={1}(\S+?)&/;
   let url = window.location.href;
   url = decodeURI(url);
   let result = url.match(regex);
-  let testQuery = {results: [{
-    pageTitle: 'Testing the fake data',
-    pageText: 'This is the text of the fake data result',
-    lastVisitTime: '2 days ago',
-    url: 'ole.com.ar',
-    domain: 'ole.com.ar',
-    protocol: 'https',
-    hits: '2 visits'
-  }]};
-  // let testQuery = await queryApi(result[1].replace('+', ' '));
+  let testQuery = await queryApi(result[1].replace('+', ' '));
   console.log(testQuery.results[0]);
 
   // Create the content for the tags
