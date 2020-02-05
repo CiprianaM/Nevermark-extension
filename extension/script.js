@@ -190,7 +190,7 @@ document.head.appendChild(style);
 
 let linkFont = document.createElement('link');
 linkFont.setAttribute('rel', 'stylesheet');
-linkFont.tseAttribute('href', 'https://fonts.googleapis.com/css?family=Lato&display=swap');
+linkFont.setAttribute('href', 'https://fonts.googleapis.com/css?family=Lato&display=swap');
 linkFont.setAttribute('type', 'text/css');
 document.head.appendChild(linkFont);
 }
